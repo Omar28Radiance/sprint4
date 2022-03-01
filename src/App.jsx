@@ -17,7 +17,7 @@ import "./index.css";
 export default function App() {
   
   useEffect(()=> {
-    fireStore.collection('todo-list').get()
+    fireStore.collection('tweets').get()
       .then((snapshot) => {
         snapshot.forEach(doc => {
           console.warn(doc.data());
