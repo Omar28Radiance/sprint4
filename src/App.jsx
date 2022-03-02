@@ -36,6 +36,16 @@ export default function App() {
       });
   }, []);
 
+  const deleteTweet = (id) => {
+    const updatedTweets = data.filter((tweet) => {
+      return tweet.id !== id 
+      
+    } )
+    setData(updatedTweets);
+    fireStore.doc(`tweets/${id}`).delete();
+
+  } 
+
   return (
     <div className="App centered column">
       <h1>Hello World</h1>
@@ -48,6 +58,7 @@ export default function App() {
               Author
               <strong>{item.author}</strong>
             </p>
+            <button className="delete" onClick={() => deleteTweet(item.id) } >X</button>
             <hr/>
           </div>
         ))

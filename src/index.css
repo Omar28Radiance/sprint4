@@ -41,3 +41,12 @@ li {
 .main {
   padding: 15px;
 }
+
+.delete {
+  background-color: red;
+  border-radius: 10px;
+  border: none;
+  color:white;
+  margin-left: 5px;
+  padding: 5px;
+}
