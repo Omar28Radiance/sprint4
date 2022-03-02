@@ -20,18 +20,17 @@ export default function App() {
   useEffect(()=> {
     fireStore.collection('tweets').get()
       .then((snapshot) => {
-        console.log(snapshot)
-        const tweets = []
+        const tweets = [];
         snapshot.forEach(doc => {
-          const snap={
+          const snap = {
             tweet: doc.data().tweet,
             author: doc.data().author,
             id: doc.id
-
-          }
+          };
+          
           tweets.push(snap)
 
-        })
+        });
         setData(tweets)
 
       });
