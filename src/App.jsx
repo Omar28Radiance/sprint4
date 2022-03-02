@@ -27,7 +27,7 @@ export default function App() {
             author: doc.data().author,
             id: doc.id
           };
-          
+
           tweets.push(snap)
 
         });
@@ -37,14 +37,18 @@ export default function App() {
   }, []);
 
   const deleteTweet = (id) => {
+    //Filtramos nuestro state con el documento que ya no
+    // necesitamos con Array.filter
     const updatedTweets = data.filter((tweet) => {
-      return tweet.id !== id 
-      
-    } )
-    setData(updatedTweets);
-    fireStore.doc(`tweets/${id}`).delete();
+      return tweet.id !== id;
+    });
 
-  } 
+    //Actualizamos nuestro state con el array actualizado
+    setData(updatedTweets);
+
+    //Borramos documento de Firebase
+    fireStore.doc(`tweets/${id}`).delete();
+  };
 
   return (
     <div className="App centered column">
