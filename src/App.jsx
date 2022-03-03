@@ -2,6 +2,10 @@
  * Dependencies
  */
 import React, { useEffect, useState } from "react";
+
+/**
+ * Components
+ */
 import Form from "./Form";
 
 /**
@@ -16,7 +20,8 @@ import { fireStore } from './firebase/firebase';
 import "./index.css";
 
 export default function App() {
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
+
   useEffect(() => {
     fireStore.collection('tweets').get()
       .then((snapshot) => {
@@ -27,8 +32,7 @@ export default function App() {
             author: doc.data().author,
             id: doc.id
           };
-
-          tweets.push(snap)
+          tweets.push(snap);
 
         });
         setData(tweets)

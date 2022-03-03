@@ -1,6 +1,21 @@
-import React from 'react';
-import useForm from './useForm';
-import Button from './components/button/Button';
+/**
+ * Dependencies
+ */
+import React from "react";
+
+/**
+ * Components
+ */
+import Button from "./components/button/Button";
+
+/**
+ * Hooks
+ */
+import useForm from "./useForm";
+
+/**
+ * Others
+ */
 import { fireStore } from "./firebase/firebase";
 
 const Form = ({
@@ -29,17 +44,10 @@ const Form = ({
                 id: doc.id
             };
 
-            setData([
-                currentTweet,
-                ...data
-            ]);
+            setData([currentTweet, ...data]);
         });
 
-        setValue({
-            tweet: "",
-            author: ""
-        })
-
+        setValue({ tweet: "", author: "" });
     }
 
     return (
@@ -56,7 +64,12 @@ const Form = ({
                 value={author}
                 onChange={handleInput}
             />
-            <Button className="btn-tweet" onClick={handleSubmit} >Submit</Button>
+            <Button
+                className="btn-tweet"
+                onClick={handleSubmit}
+            >
+                Submit
+            </Button>
         </form>
     )
 }
