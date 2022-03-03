@@ -42,11 +42,87 @@ li {
   padding: 15px;
 }
 
+.tweet-form {
+  align-items: flex-end;
+  background-color: #ccc;
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.02),
+  0px 1px 1px 0px rgba(0, 0, 0, 0.02),
+  0px 4px 4px 0px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 24px;
+  max-width: 480px;
+  padding: 4px 8px;
+}
+
+.tweet-form textarea,
+.tweet-form input {
+  background-color: transparent;
+  border: 2px solid #b2b2b2;
+  display: block;
+}
+
+.tweet-form textarea:focus,
+.tweet-form input:focus {
+  background-color: #fff;
+}
+
+.tweet-form textarea {
+  margin: 4px auto;
+  min-height: 100px;
+  width: 100%;
+}
+
+.tweet-form input,
+.btn-tweet {
+  margin-bottom: 4px;
+  margin-top: 4px;
+  width: 240px;
+}
+
 .delete {
-  background-color: red;
-  border-radius: 10px;
+  background-color: #d03c3c;
+  border-radius: 100%;
   border: none;
   color:white;
+  cursor: pointer;
+  height: 24px;
   margin-left: 5px;
   padding: 5px;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  width: 24px;
+  z-index: 2;
+}
+
+section.tweets {
+  margin: 0 auto;
+  max-width: 480px;
+}
+
+.tweet {
+  background-color: #ddd;
+  border-radius: 4px;
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.02),
+  0px 1px 1px 0px rgba(0, 0, 0, 0.02),
+  0px 4px 4px 0px rgba(0, 0, 0, 0.4);
+  display: flex;
+  margin: 4px auto 12px;
+  padding: 4px 62px 4px 8px;
+  position: relative;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+
+.tweet .tweet-content {
+  text-align: left;
+  flex-basis: 85%;
+  padding: 4px 8px;
+}
+
+.tweet .tweet-content p {
+  border-bottom: 1px solid #b2b2b2;
+  padding-bottom: 4px;
+  margin-bottom: 4px;
 }

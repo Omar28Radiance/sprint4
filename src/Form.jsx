@@ -1,5 +1,6 @@
-import React from 'react'
-import useForm from './useForm'
+import React from 'react';
+import useForm from './useForm';
+import Button from './components/button/Button';
 import { fireStore } from "./firebase/firebase";
 
 const Form = ({
@@ -42,7 +43,7 @@ const Form = ({
     }
 
     return (
-        <form>
+        <form className="tweet-form">
             <textarea
                 name='tweet'
                 value={tweet}
@@ -55,7 +56,7 @@ const Form = ({
                 value={author}
                 onChange={handleInput}
             />
-            <button onClick={handleSubmit} >Submit</button>
+            <Button className="btn-tweet" onClick={handleSubmit} >Submit</Button>
         </form>
     )
 }

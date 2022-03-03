@@ -1,13 +1,13 @@
 /**
  * Dependencies
  */
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import Form from "./Form";
 
 /**
  * Firebase
  */
- import { fireStore } from './firebase/firebase';
+import { fireStore } from './firebase/firebase';
 
 
 /**
@@ -16,8 +16,8 @@ import Form from "./Form";
 import "./index.css";
 
 export default function App() {
-  const [data,setData] = useState([])
-  useEffect(()=> {
+  const [data, setData] = useState([])
+  useEffect(() => {
     fireStore.collection('tweets').get()
       .then((snapshot) => {
         const tweets = [];
@@ -52,21 +52,24 @@ export default function App() {
 
   return (
     <div className="App centered column">
-      <h1>Hello World</h1>
-      <Form data={data} setData={setData}/>
-      {
-        data.map(item=>(
-          <div key={item.id} >
-            <p>{item.tweet}</p>
-            <p>
-              Author
-              <strong>{item.author}</strong>
-            </p>
-            <button className="delete" onClick={() => deleteTweet(item.id) } >X</button>
-            <hr/>
-          </div>
-        ))
-      }
+      <Form data={data} setData={setData} />
+      <section className='tweets'>
+        {
+          data.map(item => (
+            <div className='tweet' key={item.id} >
+              <div className="tweet-content">
+                <p>{item.tweet}</p>
+                <small>
+                  <strong>@{item.author}</strong>
+                </small>
+              </div>
+              <div className='tweet-actions'>
+              </div>
+              <button className="delete" onClick={() => deleteTweet(item.id)} >X</button>
+            </div>
+          ))
+        }
+      </section>
     </div>
   );
 }
