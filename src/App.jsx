@@ -11,32 +11,32 @@ import Form from "./Form";
 /**
  * Firebase
  */
-import { fireStore } from './firebase/firebase';
-
+import { fireStore } from "./firebase/firebase";
 
 /**
  * Styles
  */
 import "./index.css";
+import like from "./like.svg";
 
 export default function App() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fireStore.collection('tweets').get()
+    fireStore
+      .collection("tweets")
+      .get()
       .then((snapshot) => {
         const tweets = [];
-        snapshot.forEach(doc => {
+        snapshot.forEach((doc) => {
           const snap = {
             tweet: doc.data().tweet,
             author: doc.data().author,
-            id: doc.id
+            id: doc.id,
           };
           tweets.push(snap);
-
         });
-        setData(tweets)
-
+        setData(tweets);
       });
   }, []);
 
@@ -54,25 +54,34 @@ export default function App() {
     fireStore.doc(`tweets/${id}`).delete();
   };
 
+  function likeTweet(id, likes) {
+    console.log(id);
+    fireStore.doc(`tweets/${id}`).update({ likes: 300 });
+  }
+
   return (
     <div className="App centered column">
       <Form data={data} setData={setData} />
-      <section className='tweets'>
-        {
-          data.map(item => (
-            <div className='tweet' key={item.id} >
-              <div className="tweet-content">
-                <p>{item.tweet}</p>
-                <small>
-                  <strong>@{item.author}</strong>
-                </small>
-              </div>
-              <div className='tweet-actions'>
-              </div>
-              <button className="delete" onClick={() => deleteTweet(item.id)} >X</button>
+      <section className="tweets">
+        {data.map((item) => (
+          <div className="tweet" key={item.id}>
+            <div className="tweet-content">
+              <p>{item.tweet}</p>
+              <small>
+                <strong>@{item.author}</strong>
+              </small>
             </div>
-          ))
-        }
+            <div className="tweet-actions">
+              <button className="likes" onClick={() => likeTweet(item.id)}>
+                <img src={like} alt="" />
+                <span>5</span>
+              </button>
+            </div>
+            <button className="delete" onClick={() => deleteTweet(item.id)}>
+              X
+            </button>
+          </div>
+        ))}
       </section>
     </div>
   );
