@@ -23,21 +23,24 @@ export default function App() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fireStore
+    const desuscribir = fireStore
       .collection("tweets")
-      .get()
-      .then((snapshot) => {
+      .onSnapshot((snapshot) => {
         const tweets = [];
         snapshot.forEach((doc) => {
           const snap = {
             tweet: doc.data().tweet,
             author: doc.data().author,
             id: doc.id,
+            likes: doc.data().likes,
           };
           tweets.push(snap);
         });
         setData(tweets);
       });
+    return () => {
+      desuscribir();
+    };
   }, []);
 
   const deleteTweet = (id) => {
@@ -54,9 +57,13 @@ export default function App() {
     fireStore.doc(`tweets/${id}`).delete();
   };
 
+  /**
+   *@description Funcion que actualiza likes en base de datos
+   */
+
   function likeTweet(id, likes) {
-    console.log(id);
-    fireStore.doc(`tweets/${id}`).update({ likes: 300 });
+    const innerLikes = likes || 0;
+    fireStore.doc(`tweets/${id}`).update({ likes: innerLikes + 1 });
   }
 
   return (
@@ -72,9 +79,13 @@ export default function App() {
               </small>
             </div>
             <div className="tweet-actions">
-              <button className="likes" onClick={() => likeTweet(item.id)}>
+              <button
+                className="likes"
+                onClick={() => likeTweet(item.id, item.likes)}
+              >
                 <img src={like} alt="" />
-                <span>5</span>
+                {/* <span>{item.likes ? item.likes : 0}</span> */}
+                <span>{item.likes || 0}</span>
               </button>
             </div>
             <button className="delete" onClick={() => deleteTweet(item.id)}>
