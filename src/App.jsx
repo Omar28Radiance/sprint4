@@ -21,8 +21,15 @@ import like from "./like.svg";
 
 export default function App() {
   const [data, setData] = useState([]);
+  const [favs, setFavs] = useState([]);
+  const [view, setView] = useState("feed");
+  const [isSearch, setIsSearch] = useState(false);
 
   useEffect(() => {
+
+    setIsSearch=(true)
+
+
     const desuscribir = fireStore
       .collection("tweets")
       .onSnapshot((snapshot) => {
@@ -37,24 +44,34 @@ export default function App() {
           tweets.push(snap);
         });
         setData(tweets);
+        setFavs(tweets.filter(item => {
+          return item.likes > 0;
+        }))
+        setIsSearch(false)
       });
+
     return () => {
       desuscribir();
     };
   }, []);
 
   const deleteTweet = (id) => {
-    //Filtramos nuestro state con el documento que ya no
-    // necesitamos con Array.filter
-    const updatedTweets = data.filter((tweet) => {
-      return tweet.id !== id;
-    });
 
-    //Actualizamos nuestro state con el array actualizado
-    setData(updatedTweets);
+    const userConfirm = confirm("Click en aceptar o cancelar");
+    if (userConfirm) {
+      //Filtramos nuestro state con el documento que ya no
+      // necesitamos con Array.filter
+      const updatedTweets = data.filter((tweet) => {
+        return tweet.id !== id;
+      });
 
-    //Borramos documento de Firebase
-    fireStore.doc(`tweets/${id}`).delete();
+      //Actualizamos nuestro state con el array actualizado
+      setData(updatedTweets);
+
+      //Borramos documento de Firebase
+      fireStore.doc(`tweets/${id}`).delete();
+    }
+    
   };
 
   /**
@@ -70,7 +87,11 @@ export default function App() {
     <div className="App centered column">
       <Form data={data} setData={setData} />
       <section className="tweets">
-        {data.map((item) => (
+      {isSearch ? <h1>Cargando...</h1> : null}
+      <button type="button" onClick={() => setView("feed")}>Tweets</button>
+      <button type="button" onClick={() => setFavs("fav")}>Favs</button>
+        
+        {(view === "feed" ? data : favs).map((item) => (
           <div className="tweet" key={item.id}>
             <div className="tweet-content">
               <p>{item.tweet}</p>
