@@ -1,0 +1,22 @@
+.container1 {
+    display: flex;
+    flex-direction: row;
+}
+.header {
+    width: 90%;
+    margin: 0 auto;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    margin-left: 7%;
+    justify-content: flex-start;
+    align-content: flex-start;
+}

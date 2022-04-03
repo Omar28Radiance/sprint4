@@ -7,6 +7,8 @@
   * Components
   */
  import Form from "./Form";
+ import Header from "./components/header/Header";
+ import Footer from "./components/footer/Footer";
  
  /**
   * Firebase
@@ -105,6 +107,7 @@
 
    return (
      <div className="App centered column">
+       <Header />
        <section className="login">
          {user && (
            <div className='user-info'>
@@ -159,6 +162,7 @@
            </div>
          ))}
        </section>
+       <Footer />
      </div>
    );
  }
