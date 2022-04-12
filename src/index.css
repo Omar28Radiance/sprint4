@@ -14,7 +14,11 @@
   max-width: auto;
   margin: 0 auto;
   height: 100vh;
-  background-color: gray;
+  background-color: #280137;
+}
+
+.user-info {
+  color: white;
 }
 
 .flex-centered {
