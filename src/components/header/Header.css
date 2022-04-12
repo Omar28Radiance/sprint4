@@ -3,13 +3,15 @@
     flex-direction: row;
 }
 .header {
-    width: 90%;
+    /* width: 90%; */
+    width: auto;
     margin: 0 auto;
     height: 200px;
     display: flex;
     flex-direction: column;
     text-align: start;
-    color: white;
+    /* color: white; */
+    background-color: #280137;
     justify-content: center;
     align-items: center;
 }
