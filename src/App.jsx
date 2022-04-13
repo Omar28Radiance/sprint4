@@ -109,6 +109,7 @@
 
    return (
      <div className="App centered column">
+
        <Header />
        <section className="login">
          {user && (
