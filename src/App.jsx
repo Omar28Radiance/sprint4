@@ -109,7 +109,6 @@
 
    return (
      <div className="App centered column">
-                {/** {user ? login : logout} */}
        <Header />
        <section className="login">
          {user && (
