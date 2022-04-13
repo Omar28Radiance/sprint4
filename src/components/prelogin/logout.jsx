@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { fireStore, loginWithGoogle, logout, auth } from "./firebase/firebase";
-import logo from "../source/logobig.png";
+import logobig from "../source/logobig.png";
+import google from "../source/google.png";
 
 
 <div className='logoutContainer'>
 
-       <img className='logodevs' src={logobig} />
+       <img className='logobig' src={logobig} />
 
        <h1 className='title1'>LOREM IPSUM DOLOR</h1>
        <h2 className='title2'>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h2>
 
        <div className='buttonContainer'>
          <div className='logoContainer'>
-           <img className='logogoogle' src={logogoogle} />
+           <img className='logogoogle' src={google} />
          </div>
          <button className="login-btn" onClick={loginWithGoogle}>
            Sign in with Google
