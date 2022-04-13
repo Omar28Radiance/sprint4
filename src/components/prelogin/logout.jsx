@@ -3,8 +3,8 @@ import { fireStore, loginWithGoogle, logout, auth } from "./firebase/firebase";
 import logobig from "../source/logobig.png";
 import google from "../source/google.png";
 
-
-<div className='logoutContainer'>
+export default function Logout() {
+  <div className='logoutContainer'>
 
        <img className='logobig' src={logobig} />
 
@@ -25,6 +25,10 @@ import google from "../source/google.png";
        <div className='likefooter-box'></div>
 
      </div>
+}
+
+
+
 
 
 

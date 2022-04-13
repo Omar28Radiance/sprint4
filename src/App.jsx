@@ -109,7 +109,7 @@
 
    return (
      <div className="App centered column">
-
+                {/** {user ? login : logout} */}
        <Header />
        <section className="login">
          {user && (
@@ -122,7 +122,7 @@
            {user ? 'Cerrar' : 'Iniciar'} Sesión
          </button>
        </section>
-       {/* {user && <Form data={data} setData={setData} />} */}
+       
        {user && (
           <Form 
             data={data} 
@@ -135,7 +135,7 @@
          <button type="button" onClick={() => setView("feed") }>Tweets</button>
          <button type="button" onClick={() => setView("favs") }>Favs</button>
          
-         {/* {data.map((item) => ( */}
+         
          {(view === "feed" ? data : favs).map((item) => (
            <div className="tweet" key={item.id}>
              <div className="tweet-content">
@@ -152,7 +152,7 @@
                  onClick={() => likeTweet(item.id, item.likes)}
                >
                  <img src={like} alt="" />
-                 {/* <span>{item.likes ? item.likes : 0}</span> */}
+                 
                  <span>{item.likes || 0}</span>
                </button>
              </div>
