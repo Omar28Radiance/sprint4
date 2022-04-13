@@ -19,9 +19,10 @@
   * Styles
   */
  import "./index.css";
- import like from "./like.svg";
-//  import google from "./source/google(1).png"
-//  import logout from "./source/logout.png"
+ import like from "./components/source/like.svg";
+//  import remove from "./components/source/remove.png";
+//  import google from "./source/google.png"
+//  import logout from "./components/source/logout.png";
  
  export default function App() {
    const [data, setData] = useState([]);
@@ -131,9 +132,9 @@
         )}
        <section className="tweets">
          {isSearch ? <p>Cargando...</p> : null}
-         <button type="button" onClick={() => setView("feed") }>Tweets</button>
-         <button type="button" onClick={() => setView("favs") }>Favs</button>
-         
+         <button className="btn-feeding" type="button" onClick={() => setView("feed") }>Tweets</button>
+         <button className="btn-favorites" type="button" onClick={() => setView("favs") }>Favs</button>
+{/** en el botón de "Favs" y de "Tweets" se agregaron los className para darles formato css */}      
          
          {(view === "feed" ? data : favs).map((item) => (
            <div className="tweet" key={item.id}>
@@ -157,8 +158,9 @@
              </div>
              {
                (user !== null && user.uid === item.uid) && 
-               <button className="delete" onClick={() => deleteTweet(item.id)}>
+              <button className="delete" onClick={() => deleteTweet(item.id)}>
                X
+               {/* < img src={remove} alt=""/> */}
               </button>
              }
            </div>

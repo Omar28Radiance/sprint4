@@ -106,6 +106,7 @@ section.tweets {
   margin: 0 auto;
   max-width: 480px;
   background-color: #331144;
+  /* max-height: aunto; */
 }
 
 .tweet {
@@ -131,6 +132,20 @@ section.tweets {
   border-bottom: 1px solid #b2b2b2;
   padding-bottom: 4px;
   margin-bottom: 4px;
+}
+
+.btn-feeding {
+  background-color: #490648;
+  border-radius: 4px;
+  border-color: #d03c3c;
+  color:#ddd;
+}
+
+.btn-favorites {
+  background-color: #490648;
+  border-radius: 4px;
+  border-color: #d03c3c;
+  color:#ddd;
 }
 
 .likes img {
