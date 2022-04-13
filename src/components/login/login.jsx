@@ -1,8 +1,8 @@
 import React, {useEffect, useState } from "react";
 import { fireStore, loginWithGoogle, logout, auth } from "./firebase/firebase";
 import { AppContext } from "../../store/AppContext";
-import Header from "./components/header/Header";
-import Footer from "./components/footer/Footer";
+import Header from "../header/Header";
+import Footer from "../footer/Footer";
 
 export default function Login() {
     const {
