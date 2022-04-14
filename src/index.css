@@ -18,6 +18,24 @@
   background-color: #280137;
 }
 
+.btn-login {
+  font-family: IBMPlexSans;
+  font-size: 48px;
+  width: 30%;
+  height: 50px;
+  background-color: #490648;
+  border-radius: 4px;
+  border-color: #d03c3c;
+  color:#ddd;
+}
+
+.title1 {
+  font-family: IBMPlexSans;
+  font-size: 64px;
+  color:#b2b2b2;
+  letter-spacing: 0;
+}
+
 .user-info {
   color: white;
 }
@@ -135,17 +153,27 @@ section.tweets {
 }
 
 .btn-feeding {
+  font-family: IBMPlexSans;
+  font-size: 50px;
+  color:#b2b2b2;
+  letter-spacing: 0;
+  width: 50%;
+  height: 50px;
   background-color: #490648;
   border-radius: 4px;
   border-color: #d03c3c;
-  color:#ddd;
 }
 
 .btn-favorites {
+  font-family: IBMPlexSans;
+  font-size: 50px;
+  color:#b2b2b2;
+  letter-spacing: 0;
+  width: 50%;
+  height: 50px;
   background-color: #490648;
   border-radius: 4px;
   border-color: #d03c3c;
-  color:#ddd;
 }
 
 .likes img {

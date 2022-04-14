@@ -20,6 +20,8 @@
   */
  import "./index.css";
  import like from "./components/source/like.svg";
+ import logobig from "./components/source/logobig.png";
+ import pase from "./components/source/logout.png";
 //  import remove from "./components/source/remove.png";
 //  import google from "./source/google.png"
 //  import logout from "./components/source/logout.png";
@@ -110,7 +112,8 @@
 
    return (
      <div className="App centered column">
-       <Header />
+       
+       { user && (<Header />)}
        <section className="login">
          {user && (
            <div className='user-info'>
@@ -120,7 +123,13 @@
          )}
          <button className="btn-login" type="button" onClick={user ? logout : loginWithGoogle}>
            {user ? 'Cerrar' : 'Iniciar'} Sesión
+           <img alt="entrada/salida" src={pase}/>
          </button>
+         {user === null && 
+         (<div className="containerlogout">
+           <h1 className="title1">DEV'S united</h1>
+         <img alt="felicidad" src={logobig}/>
+         </div>)}
        </section>
        
        {user && (
@@ -131,12 +140,12 @@
           />
         )}
        <section className="tweets">
-         {isSearch ? <p>Cargando...</p> : null}
-         <button className="btn-feeding" type="button" onClick={() => setView("feed") }>Tweets</button>
-         <button className="btn-favorites" type="button" onClick={() => setView("favs") }>Favs</button>
-{/** en el botón de "Favs" y de "Tweets" se agregaron los className para darles formato css */}      
+         { isSearch ? <p>Cargando...</p> : null}
+         { user && (<button className="btn-feeding" type="button" onClick={() => setView("feed") }>Tweets</button>)}
+         { user && (<button className="btn-favorites" type="button" onClick={() => setView("favs") }>Favs</button>)}
+          {/** en el botón de "Favs" y de "Tweets" se agregaron los className para darles formato css */}      
          
-         {(view === "feed" ? data : favs).map((item) => (
+         { user && (view === "feed" ? data : favs).map((item) => (
            <div className="tweet" key={item.id}>
              <div className="tweet-content">
                <p>{item.tweet}</p>
@@ -160,13 +169,12 @@
                (user !== null && user.uid === item.uid) && 
               <button className="delete" onClick={() => deleteTweet(item.id)}>
                X
-               {/* < img src={remove} alt=""/> */}
               </button>
              }
            </div>
          ))}
        </section>
-       <Footer />
+       {user && (<Footer />)}
      </div>
    );
  }
