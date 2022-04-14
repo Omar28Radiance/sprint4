@@ -1,30 +1,15 @@
-/**
- * Dependencies
- */
  import React, { useEffect, useState } from "react";
 
- /**
-  * Components
-  */
  import Form from "./Form";
  import Header from "./components/header/Header";
  import Footer from "./components/footer/Footer";
  
- /**
-  * Firebase
-  */
  import { fireStore, loginWithGoogle, logout, auth } from "./firebase/firebase";
- // en import se agregaron los valores de "loginConGoogle", "auth" & "logout"
- /**
-  * Styles
-  */
+ 
  import "./index.css";
  import like from "./components/source/like.svg";
  import logobig from "./components/source/logobig.png";
  import pase from "./components/source/logout.png";
-//  import remove from "./components/source/remove.png";
-//  import google from "./source/google.png"
-//  import logout from "./components/source/logout.png";
  
  export default function App() {
    const [data, setData] = useState([]);
@@ -84,26 +69,17 @@
      const userConfirm = window.confirm("¿Estás seguro que quieres eliminar este hermoso Tweet?");
  
      if (userConfirm) {
-       //Filtramos nuestro state con el documento que ya no
-       // necesitamos con Array.filter
+       
        const updatedTweets = data.filter((tweet) => {
          return tweet.id !== id;
        });
-       //El codigo previo de updatedTweets se coloca dentro del useconfirm.
- 
- 
-       //Actualizamos nuestro state con el array actualizado
+       
        setData(updatedTweets);
  
-       //Borramos documento de Firebase
        fireStore.doc(`tweets/${id}`).delete();
      }
  
    };
- 
-   /**
-    *@description Funcion que actualiza likes en base de datos
-    */
  
    function likeTweet(id, likes) {
      const innerLikes = likes || 0;
@@ -143,7 +119,6 @@
          { isSearch ? <p>Cargando...</p> : null}
          { user && (<button className="btn-feeding" type="button" onClick={() => setView("feed") }>Tweets</button>)}
          { user && (<button className="btn-favorites" type="button" onClick={() => setView("favs") }>Favs</button>)}
-          {/** en el botón de "Favs" y de "Tweets" se agregaron los className para darles formato css */}      
          
          { user && (view === "feed" ? data : favs).map((item) => (
            <div className="tweet" key={item.id}>
@@ -178,4 +153,3 @@
      </div>
    );
  }
-//En lineas superiores el usuario debe ser validado tanto si tiene un uid valido asi como que el usuario siempre esté logueado, puesto que en un inicio user inicia como null, pues no hay una sesión activa. El codigo leerá si primero el usuario/objeto no es null y despues si las propiedades coincidan.
