@@ -1,9 +1,6 @@
  import React from "react";
-
  import Button from "./components/button/Button";
- 
  import useForm from "./useForm";
- 
  import { fireStore } from "./firebase/firebase";
  
  const Form = ({
@@ -29,9 +26,7 @@
          
          console.warn(newTweet);
          const addTweet = fireStore.collection("tweets").add(newTweet);
-         
          const getDoc = addTweet.then(doc => (doc.get()))
-         
          getDoc.then(doc => {
              const currentTweet = {
                  tweet: doc.data().tweet,

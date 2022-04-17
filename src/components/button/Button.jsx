@@ -1,11 +1,4 @@
-/**
- * Dependencies
- */
 import React from "react";
-
-/**
- * Styles
- */
 import "./Button.css";
 
 function Button({ type, children, className, onClick, disabled }) {
