@@ -32,38 +32,99 @@
              author,
              email,
              uid,
-             likes
+             likes, 
+             photo
             } = doc.data();
-            
+
            const snap = {
              tweet,
              author,
              id: doc.id,
              email,
              uid,
-             likes
+             likes, 
+             photo
            };
            tweets.push(snap);
          });
          setData(tweets);
-         setFavs(tweets.filter(item => {
-           return item.likes > 0;
-         }))
+        
          setIsSearch(false)
        });
        
        auth.onAuthStateChanged((user) => {
-         console.warn('LOGGED WIDTH:', user);
-         setUser(user);
+         
+         setUser(user)
+         if (user) {
+           fireStore.collection('users').get()
+             .then(snapshot => {
+               snapshot.forEach(doc => {
+                 const userDoc = doc.data()
+                 if (userDoc.uid === user.uid) {
+                   setUser({
+                     ...user, ...userDoc
+                   })
+                 }
+               })
+             })
+         }
        });
-       
+
      return () => {
        desuscribir();
      };
    }, []);
+
+   useEffect(() => {
+     if (user) {
+       if (data.length && user.favorites && user.favorites.length) {
+          const favorites = user.favorites.map(favId => {
+            const tweetFav = data.find(item => item.id === favId)
+            console.log(data, favId)
+            return tweetFav
+          })
+            .filter(item => item !== undefined)
+          setFavs(favorites)
+          console.log('FAVORITESSSSSSSSS', favorites)
+       }
+       console.log('DATA', data)
+       console.log('Entrando al efecto', user)
+       fireStore.collection("users")
+         .get()
+         .then(snapshot => {
+           if (!snapshot.size) {
+             return fireStore.collection('users').add({
+               displayName: user.displayName,
+               photo: user.photoURL,
+               uid: user.uid,
+               email: user.email,
+               favorites: []
+             })
+           } else {
+             snapshot.forEach(doc => {
+               const userDoc = doc.data()
+               if (userDoc.uid !== user.uid) {
+                 return fireStore.collection('users').add({
+                   displayName: user.displayName,
+                   photo: user.photoURL,
+                   uid: user.uid,
+                   email: user.email,
+                   favorites: []
+                 })
+               }
+             })
+           }
+
+         })
+         .then(doc => doc.get())
+         .then(userDoc => {
+           setUser(userDoc)
+           console.warn(userDoc)
+         })
+     }
+   }, [user, data]) 
  
- 
- 
+
    const deleteTweet = (id) => {
      
      const userConfirm = window.confirm("¿Estás seguro que quieres eliminar este hermoso Tweet?");
@@ -73,18 +134,32 @@
        const updatedTweets = data.filter((tweet) => {
          return tweet.id !== id;
        });
-       
        setData(updatedTweets);
- 
        fireStore.doc(`tweets/${id}`).delete();
      }
- 
    };
  
    function likeTweet(id, likes) {
      const innerLikes = likes || 0;
      fireStore.doc(`tweets/${id}`).update({ likes: innerLikes + 1 });
-   };
+     fireStore.collection("users")
+       .get()
+       .then(snapshot => {
+         snapshot.forEach(doc => {
+           const userDoc = doc.data()
+           if (userDoc.uid === user.uid) {
+             console.log(doc.id)
+             fireStore.doc(`users/${doc.id}`).update({
+               favorites: [...userDoc.favorites, id]
+              })
+           }
+         })
+       })
+       setUser({
+         ...user, favorites: [...user.favorites, id]
+       })
+      
+   }
 
    return (
      <div className="App centered column">
@@ -122,6 +197,11 @@
          
          { user && (view === "feed" ? data : favs).map((item) => (
            <div className="tweet" key={item.id}>
+             
+             <div className="containerPhotoTweet">
+               <img src={item.photo}/>
+             </div>
+             
              <div className="tweet-content">
                <p>{item.tweet}</p>
                <small>
