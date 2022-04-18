@@ -21,10 +21,11 @@
             uid: user.uid,
             email: user.email,
             username: user.displayName,
-            photo: user.photoURL
+            photo: user.photoURL,
+            // date: Date.now()
         }
-         
          console.warn(newTweet);
+         
          const addTweet = fireStore.collection("tweets").add(newTweet);
          const getDoc = addTweet.then(doc => (doc.get()))
          getDoc.then(doc => {
@@ -35,6 +36,7 @@
                  uid: doc.data().uid,
                  email: doc.data().email,
                  photo: doc.data().photo,
+                //  date: doc.data().date,
              };
              setData([currentTweet, ...data]);
          });

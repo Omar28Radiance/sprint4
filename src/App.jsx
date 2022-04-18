@@ -1,4 +1,5 @@
  import React, { useEffect, useState } from "react";
+//  import { BrowserRouter,/* Switch, Route, Link */} from 'react-router-dom';
 
  import Form from "./Form";
  import Header from "./components/header/Header";
@@ -10,9 +11,11 @@
  import like from "./components/source/like.svg";
  import logobig from "./components/source/logobig.png";
  import pase from "./components/source/logout.png";
+//  import RingLoader from "react-spinners/RingLoader";
  
  export default function App() {
    const [data, setData] = useState([]);
+  //  const [loading, setLoading] = useState(true);
    const [favs, setFavs] = useState([]);
    const [view, setView] = useState("feed");
    const [isSearch, setIsSearch] = useState(false);
@@ -24,6 +27,7 @@
      
      const desuscribir = fireStore
        .collection("tweets")
+      //  .orderBy("date")
        .onSnapshot((snapshot) => {
          const tweets = [];
          snapshot.forEach((doc) => {
@@ -33,7 +37,8 @@
              email,
              uid,
              likes, 
-             photo
+             photo,
+            //  date,
             } = doc.data();
 
            const snap = {
@@ -43,9 +48,12 @@
              email,
              uid,
              likes, 
-             photo
+             photo,
+            //  date,
            };
-           tweets.push(snap);
+          //  tweets.push(snap);
+          tweets.unshift(snap); //en vez de push para agregarlo al principio
+
          });
          setData(tweets);
          setIsSearch(false)
@@ -91,6 +99,7 @@
        fireStore.collection("users")
          .get()
          .then(snapshot => {
+
            if (!snapshot.size) {
              return fireStore.collection('users').add({
                displayName: user.displayName,
@@ -103,6 +112,7 @@
              snapshot.forEach(doc => {
                const userDoc = doc.data()
                if (userDoc.uid !== user.uid) {
+                 
                  return fireStore.collection('users').add({
                    displayName: user.displayName,
                    photo: user.photoURL,
@@ -161,6 +171,7 @@
    }
 
    return (
+    //  <BrowserRouter>
      <div className="App centered column">
        
        { user && (<Header />)}
@@ -189,6 +200,7 @@
             user={user || {}} 
           />
         )}
+        {/* { loading?<RingLoader className="loader" color={"#477A0C"} loading={loading} size={100} />: */}
        <section className="tweets">
          { isSearch ? <p>Cargando...</p> : null}
          { user && (<button className="btn-feeding" type="button" onClick={() => setView("feed") }>Tweets</button>)}
@@ -197,12 +209,15 @@
          { user && (view === "feed" ? data : favs).map((item) => (
            <div className="tweet" key={item.id}>
              
-             <div className="containerPhotoTweet">
-               <img src={item.photo} alt="fotografía"/>
-             </div>
+             {/* <div className="containerPhotoTweet">
+               <img src={item.photo} alt="fotografía"/> 
+               el "containerPhotoTweet" fue sustituido por <img src={item.photo} alt={item.photo}/>
+             </div> */} 
              
              <div className="tweet-content">
                <p>{item.tweet}</p>
+               <img src={item.photo} alt={item.photo}/> 
+               <hr/>
                <small>
                  <strong>@{item.author}</strong>
                  <br/>
@@ -228,7 +243,9 @@
            </div>
          ))}
        </section>
+       {/* } */}
        {user && (<Footer />)}
      </div>
+    //  </BrowserRouter>
    );
  }
