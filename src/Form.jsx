@@ -25,7 +25,7 @@
             // date: Date.now()
         }
          console.warn(newTweet);
-         
+
          const addTweet = fireStore.collection("tweets").add(newTweet);
          const getDoc = addTweet.then(doc => (doc.get()))
          getDoc.then(doc => {
@@ -47,6 +47,7 @@
          <form className="tweet-form">
              <textarea
                  name='tweet'
+                 placeholder='Escribe un Tweet'
                  value={tweet}
                  onChange={handleInput}
              >
