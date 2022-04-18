@@ -48,7 +48,6 @@
            tweets.push(snap);
          });
          setData(tweets);
-        
          setIsSearch(false)
        });
        
@@ -199,7 +198,7 @@
            <div className="tweet" key={item.id}>
              
              <div className="containerPhotoTweet">
-               <img src={item.photo}/>
+               <img src={item.photo} alt="fotografía"/>
              </div>
              
              <div className="tweet-content">
