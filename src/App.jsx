@@ -1,12 +1,16 @@
+ //dependencies
  import React, { useEffect, useState } from "react";
 //  import { BrowserRouter,/* Switch, Route, Link */} from 'react-router-dom';
 
+ //components
  import Form from "./Form";
  import Header from "./components/header/Header";
  import Footer from "./components/footer/Footer";
  
+ //firebase
  import { fireStore, loginWithGoogle, logout, auth } from "./firebase/firebase";
  
+ //styles
  import "./index.css";
  import like from "./components/source/like.svg";
  import logobig from "./components/source/logobig.png";
@@ -21,6 +25,7 @@
    const [isSearch, setIsSearch] = useState(false);
    const [user, setUser] = useState(null);
    
+   //Autentication
    useEffect(() => {
  
      setIsSearch(true)
@@ -112,7 +117,7 @@
              snapshot.forEach(doc => {
                const userDoc = doc.data()
                if (userDoc.uid !== user.uid) {
-                 
+
                  return fireStore.collection('users').add({
                    displayName: user.displayName,
                    photo: user.photoURL,
@@ -133,13 +138,10 @@
      }
    }, [user, data]) 
  
-
+   //delete tweet
    const deleteTweet = (id) => {
-     
      const userConfirm = window.confirm("¿Estás seguro que quieres eliminar este hermoso Tweet?");
- 
      if (userConfirm) {
-       
        const updatedTweets = data.filter((tweet) => {
          return tweet.id !== id;
        });
@@ -148,6 +150,7 @@
      }
    };
  
+   //like tweets
    function likeTweet(id, likes) {
      const innerLikes = likes || 0;
      fireStore.doc(`tweets/${id}`).update({ likes: innerLikes + 1 });
@@ -179,7 +182,7 @@
          {user && (
            <div className='user-info'>
              <p>Hola {user.displayName}</p>
-             <img src={user.photoURL} alt={user.displayName} />
+             <img src={user.photoURL} alt={user.displayName} referrerPolicy="no-referrer" />
            </div>
          )}
          <button className="btn-login" type="button" onClick={user ? logout : loginWithGoogle}>
@@ -229,7 +232,7 @@
                  className="likes"
                  onClick={() => likeTweet(item.id, item.likes)}
                >
-                 <img src={like} alt="" />
+                 <img src={like} alt="like" />
                  
                  <span>{item.likes || 0}</span>
                </button>
@@ -249,3 +252,4 @@
     //  </BrowserRouter>
    );
  }
+//Continuar video desde minuto 00:23:00, en la parte de Alejandra.
