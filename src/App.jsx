@@ -101,6 +101,7 @@
        }
        console.log('DATA', data)
        console.log('Entrando al efecto', user)
+
        fireStore.collection("users")
          .get()
          .then(snapshot => {
@@ -117,7 +118,7 @@
              snapshot.forEach(doc => {
                const userDoc = doc.data()
                if (userDoc.uid !== user.uid) {
-
+//Preguntar/ver como eliminar el "useDoc.id" ya que por el "forEach" se terminan creando usuarios de forma infinita.
                  return fireStore.collection('users').add({
                    displayName: user.displayName,
                    photo: user.photoURL,
@@ -169,8 +170,7 @@
        })
        setUser({
          ...user, favorites: [...user.favorites, id]
-       })
-      
+       })   
    }
 
    return (
@@ -252,4 +252,4 @@
     //  </BrowserRouter>
    );
  }
-//Continuar video desde minuto 00:23:00, en la parte de Alejandra.
+//Continuar video desde minuto 00:51:49, en la parte de Alejandra.
